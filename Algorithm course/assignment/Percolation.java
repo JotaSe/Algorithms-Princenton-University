@@ -1,9 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package algorithm.course.week1.percolation;
-
 /**
  *
  * @author Jota
@@ -12,7 +6,9 @@ public class Percolation {
 
     private boolean[] cells;
     private WeightedQuickUnionUF cellStorage;
-    public int size, startPoint, endPoint;
+    private int size;
+    private int startPoint;
+    private int endPoint;
 
     // create N-by-N grid, with all sites blocked
     /**
@@ -36,9 +32,6 @@ public class Percolation {
      * @param j column
      */
     public void open(int i, int j) {
-//        if (isOpen(i, j)) {
-//            return;
-//        }
         int cell = getCellIndex(i, j);
         cells[cell] = true;
 
@@ -50,11 +43,6 @@ public class Percolation {
 
         //BORDERS
         checkBorders(i, j, cell);
-
-
-
-
-
     }
 
     /**
@@ -72,7 +60,6 @@ public class Percolation {
     private void checkBoundException(int i, int j) {
         if (i <= 0 || j <= 0 || i > size || j > size) {
             throw new IndexOutOfBoundsException();
-
         }
     }
 
@@ -175,7 +162,5 @@ public class Percolation {
                 union(getCellIndex(i, temp), cell);
             }
         }
-
-
     }
 }
