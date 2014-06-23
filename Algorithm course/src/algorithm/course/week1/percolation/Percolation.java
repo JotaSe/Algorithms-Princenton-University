@@ -12,7 +12,7 @@ public class Percolation {
 
     private boolean[] cells;
     private WeightedQuickUnionUF cellStorage;
-    public int side, startPoint,endPoint;
+    public int size, startPoint,endPoint;
 
     // create N-by-N grid, with all sites blocked
     /**
@@ -22,8 +22,8 @@ public class Percolation {
      */
     public Percolation(int N) {
         
-        side = N;
-        startPoint = side * side;
+        size = N;
+        startPoint = size * size;
         endPoint=startPoint+1;
         cells = new boolean[N * N + 2];
         cellStorage = new WeightedQuickUnionUF(cells.length);
@@ -68,7 +68,7 @@ public class Percolation {
         //System.out.println(i +"//"+j);
 
 
-        if (i <= 0 || j <= 0 || i > side || j > side) {
+        if (i <= 0 || j <= 0 || i > size || j > size) {
             System.out.println("i :" + i);
             System.out.println("j = " + j);
             throw new IndexOutOfBoundsException();
@@ -109,7 +109,7 @@ public class Percolation {
      * @return cell index
      */
     private int getCellIndex(int row, int column) {
-        return (side * (row - 1)) + column - 1;
+        return (size * (row - 1)) + column - 1;
     }
 
     private void union(int i, int j) {
@@ -130,7 +130,7 @@ public class Percolation {
      */
     private void checkTop(int i, int j, int cell) {
         int temp = i - 1;
-        if (i > 1 && 1 < side) {
+        if (i > 1 && 1 < size) {
             if (isOpen(temp, j)) {
                 union(getCellIndex(temp, j), cell);
             }
@@ -148,11 +148,11 @@ public class Percolation {
      */
     private void checkBottom(int i, int j, int cell) {
         int temp = i + 1;
-        if (i < side && i > 0) {
+        if (i < size && i > 0) {
             if (isOpen(temp, j)) {
                 union(getCellIndex(temp, j), cell);
             }
-        } else if (i == side) {
+        } else if (i == size) {
             union(cell, endPoint);
         }
     }
@@ -167,7 +167,7 @@ public class Percolation {
     private void checkBorders(int i, int j, int cell) {
         int temp = j - 1;
         //left border
-        if (j > 1 && j <= side) {
+        if (j > 1 && j <= size) {
             if (isOpen(i, temp)) {
                 union(getCellIndex(i, temp), cell);
             }
@@ -175,7 +175,7 @@ public class Percolation {
 //
 
         temp += 2;
-        if (j < side && j >= 1) {
+        if (j < size && j >= 1) {
             if (isOpen(i, temp)) {
                 union(getCellIndex(i, temp), cell);
             }
